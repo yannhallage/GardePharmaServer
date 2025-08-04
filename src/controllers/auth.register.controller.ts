@@ -9,14 +9,14 @@ import { DonneesReçue, PharmacyRegister } from '../types/requeteHttpAuth.type'
 export const authentification = async (req: Request, res: Response, next: NextFunction) => {
 
     const requeteHttp: DonneesReçue = req.body
-
+    console.log(requeteHttp)
     if (requeteHttp.userType == 'admin') {
         try {
 
             const admin = await authRegisterService.loginAdmin(requeteHttp);
-
+            console.log(admin)
             if (!admin) {
-                return res.status(401).json({ error: 'Email ou mot de passe invalide' });
+                return res.status(401).json({ error: 'Email ou mot de passe invalide (admin)' });
             }
 
             return res.status(200).json({
