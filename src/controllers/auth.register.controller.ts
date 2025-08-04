@@ -2,8 +2,11 @@
 
 import { Request, Response, NextFunction } from 'express';
 import authRegisterService from '../services/auth.regiser.service';
-import { DonneesReçue, PharmacyRegister } from '../types/requeteHttpAuth.type'
+import { DonneesReçue, PharmacyRegister, tokenSecret } from '../types/requeteHttpAuth.type'
+import jwt from 'jsonwebtoken';
+// import { Pharmacy } from '../models/pharmacy.model';
 
+const SECRET = process.env.JWT_SECRET || tokenSecret;
 
 
 export const authentification = async (req: Request, res: Response, next: NextFunction) => {
@@ -14,13 +17,22 @@ export const authentification = async (req: Request, res: Response, next: NextFu
         try {
 
             const admin = await authRegisterService.loginAdmin(requeteHttp);
-            console.log(admin)
             if (!admin) {
                 return res.status(401).json({ error: 'Email ou mot de passe invalide (admin)' });
             }
+            const token = jwt.sign(
+                {
+                    id: admin._id,
+                    email: admin.email,
+                    role: requeteHttp.userType,
+                },
+                SECRET,
+                { expiresIn: '2h' }
+            );
 
             return res.status(200).json({
                 message: 'Connexion réussie',
+                token,
                 user: {
                     id: admin._id,
                     nom: admin.nom,
@@ -37,13 +49,22 @@ export const authentification = async (req: Request, res: Response, next: NextFu
         try {
 
             const pharmacy = await authRegisterService.loginPharmacy(requeteHttp);
-
+            console.log(pharmacy)
             if (!pharmacy) {
                 return res.status(401).json({ error: 'Email ou mot de passe invalide' });
             }
-
+            const token = jwt.sign(
+                {
+                    id: pharmacy._id,
+                    email: pharmacy.email,
+                    role: requeteHttp.userType,
+                },
+                SECRET,
+                { expiresIn: '2h' }
+            );
             return res.status(200).json({
                 message: 'Connexion réussie',
+                token,
                 user: {
                     identification: pharmacy.identification,
                     nom_pharmacie: pharmacy.nom_pharmacie,
@@ -74,6 +95,8 @@ export const inscriptionPharmacy = async (req: Request, res: Response, next: Nex
                 id: pharmacieCree._id,
                 identification: pharmacieCree.identification,
                 nom_pharmacie: pharmacieCree.nom_pharmacie,
+                chef_pharmacie: pharmacieCree.chef_pharmacie,
+                details: pharmacieCree.details,
                 email: pharmacieCree.email,
                 commune: pharmacieCree.commune,
                 numero: pharmacieCree.numero,

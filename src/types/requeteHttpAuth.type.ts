@@ -17,3 +17,5 @@ export interface PharmacyRegister {
     userType?: string;
     password: string;
 }
+
+export const tokenSecret: any = process.env.tokenSecret 
