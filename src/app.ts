@@ -53,7 +53,6 @@ class App {
       });
     });
     
-    // toutes les routes crees sont utlisees ici 
 
     // routes d'access aux ressources
     this.app.use('/api/access/management', AuthAndRegisterUsers)
