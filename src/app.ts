@@ -4,6 +4,7 @@ import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
+import AuthAndRegisterUsers from './routes/auth.register.routes'
 
 dotenv.config();
 
@@ -42,6 +43,7 @@ class App {
   private initializeRoutes(): void {
     console.log('Initializing routes...');
 
+    
     this.app.get('/health', (req: Request, res: Response) => {
       console.log('Handling /health route');
       res.status(200).json({
@@ -50,6 +52,12 @@ class App {
         uptime: process.uptime()
       });
     });
+    
+    // toutes les routes crees sont utlisees ici 
+
+    // routes d'access aux ressources
+    this.app.use('/api/access/management', AuthAndRegisterUsers)
+
 
     this.app.use(/.*/, (req: Request, res: Response) => {
       console.log('Handling catch-all route');
@@ -58,6 +66,7 @@ class App {
         path: req.originalUrl
       });
     });
+
   }
 
   private initializeErrorHandling(): void {
