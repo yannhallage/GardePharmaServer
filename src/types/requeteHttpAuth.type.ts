@@ -17,5 +17,17 @@ export interface PharmacyRegister {
     userType?: string;
     password: string;
 }
+export interface Garde {
+  reference: string;
+  date: Date;
+  type: string;
+  nom_pharmacie: string;
+  responsable: string;
+  lieu: string;
+  commune: string;
+  statut: string;
+  commentaire?: string;
+
+}
 
 export const tokenSecret: any = process.env.tokenSecret 
