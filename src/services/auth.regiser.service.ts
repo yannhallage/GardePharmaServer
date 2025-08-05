@@ -26,9 +26,8 @@ const loginPharmacy = async (credentials: Partial<Pharmacy>): Promise<Pharmacy |
 
     const pharma = await DataPharmacy.findOne({ email });
 
-    if (!pharma || pharma.password !== password) {
-        return null;
-    }
+    if (!pharma) return null;
+
     const isMatch = await bcrypt.compare(password!, pharma.password);
     if (!isMatch) return null;
     return pharma;
