@@ -7,6 +7,7 @@ export interface IGarde extends Document {
   nom_pharmacie: string;
   responsable: string;
   commune: string;
+  userId: string;
   statut: string;
   commentaire?: string;
   createdAt: Date;
@@ -21,6 +22,7 @@ const GardeSchema: Schema = new Schema<IGarde>(
     nom_pharmacie: { type: String, required: true },
     responsable: { type: String, required: true },
     commune: { type: String, required: true },
+    userId: { type: String, required: true },
     statut: { type: String, required: true },
     commentaire: { type: String, required: false },
   },

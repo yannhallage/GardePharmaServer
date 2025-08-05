@@ -5,6 +5,7 @@ import rateLimit from 'express-rate-limit';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
 import AuthAndRegisterUsers from './routes/auth.register.routes'
+import AccesPharmacy from './routes/pharmacy.routes'
 
 dotenv.config();
 
@@ -56,6 +57,8 @@ class App {
 
     // routes d'access aux ressources
     this.app.use('/api/access/management', AuthAndRegisterUsers)
+    this.app.use('/api/access/pharma', AccesPharmacy)
+    // this.app.use('/api/access/admin', AccesPharmacy)
 
 
     this.app.use(/.*/, (req: Request, res: Response) => {

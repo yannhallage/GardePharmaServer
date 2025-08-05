@@ -6,9 +6,13 @@ export const getHistoriqueByPharmacyId = async (pharmacyId: string): Promise<IGa
         return [];
     }
 
+    // return await Garde.find({
+    //     reference: pharmacyId,
+    //     statut: 'validée',
+    // });
     return await Garde.find({
-        reference: pharmacyId,
-        statut: 'validée',
+        userId: pharmacyId,
+        statut: { $in: ['validée', 'refusée'] },
     });
 };
 
@@ -18,8 +22,8 @@ export const getConsulterGardeByPharmacyId = async (pharmacyId: string): Promise
     }
 
     return await Garde.find({
-        reference: pharmacyId,
-        statut: 'en cours',
+        userId: pharmacyId,
+        statut: { $in: ['en cours', 'en attente'] },
     });
 };
 
