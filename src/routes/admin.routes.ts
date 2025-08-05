@@ -20,7 +20,7 @@ router.get('/gardes/listehistorique/:id',
     getAllHistoriqueGardes
 );
 router.get('/gardes/gererGardes/:id',
-    // verifyToken,
+    verifyToken,
     validateParams(gardeIdSchema),
     getAllGardes
 );
