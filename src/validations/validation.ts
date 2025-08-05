@@ -22,6 +22,14 @@ export const pharmacyRegisterSchema = z.object({
   userType: z.literal('pharmacy').optional()
 });
 
+export const pharmacyRegisterSchemaByAdmin = z.object({
+  nom_pharmacie: z.string().min(2, 'Le nom de la pharmacie est requis'),
+  chef_pharmacie: z.string().min(2, 'Le nom du chef de pharmacie est requis'),
+  commune: z.string().min(2, 'La commune est requise'),
+  numero: z.string().min(7, 'Le numéro est requis').max(20, 'Numéro trop long'),
+  email: z.string().email('Email invalide'),
+});
+
 export const AuthSchema = z.object({
   userType: z.enum(['admin', 'pharmacy']),
   email: z.string().email(),
@@ -54,5 +62,14 @@ export const profilUpdateSchema = z.object({
   numero: z.string().min(7, 'Le numéro est requis').max(20, 'Numéro trop long').optional(),
   lieu: z.string().min(2, 'Le lieu est requis').optional(),
   email: z.string().email('Email invalide').optional(),
+  password: z.string().min(6, 'Le mot de passe doit contenir au moins 6 caractères').optional(),
+});
+
+// update pour admin
+export const profilUpdateSchemaAdmin = z.object({
+  nom: z.string().min(2, 'Le nom admin est requis').optional(),
+  prenom: z.string().min(2, 'Le prenom admin est requis').optional(),
+  email: z.string().email('Email invalide').optional(),
+  numero: z.string().min(7, 'Le numéro est requis').max(20, 'Numéro trop long').optional(),
   password: z.string().min(6, 'Le mot de passe doit contenir au moins 6 caractères').optional(),
 });
