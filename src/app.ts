@@ -1,4 +1,4 @@
-import express, { Application, Request, Response, NextFunction } from 'express';
+  import express, { Application, Request, Response, NextFunction } from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
@@ -6,6 +6,7 @@ import morgan from 'morgan';
 import dotenv from 'dotenv';
 import AuthAndRegisterUsers from './routes/auth.register.routes'
 import AccesPharmacy from './routes/pharmacy.routes'
+import AccesAdmin from './routes/admin.routes'
 
 dotenv.config();
 
@@ -44,7 +45,7 @@ class App {
   private initializeRoutes(): void {
     console.log('Initializing routes...');
 
-    
+
     this.app.get('/health', (req: Request, res: Response) => {
       console.log('Handling /health route');
       res.status(200).json({
@@ -53,12 +54,12 @@ class App {
         uptime: process.uptime()
       });
     });
-    
+
 
     // routes d'access aux ressources
     this.app.use('/api/access/management', AuthAndRegisterUsers)
     this.app.use('/api/access/pharma', AccesPharmacy)
-    // this.app.use('/api/access/admin', AccesPharmacy)
+    this.app.use('/api/access/admin', AccesAdmin)
 
 
     this.app.use(/.*/, (req: Request, res: Response) => {
