@@ -7,15 +7,15 @@ export interface DonneesReçue {
 }
 
 export interface PharmacyRegister {
-    nom_pharmacie: string;
-    chef_pharmacie: string;
-    commune: string;
-    details: string;
-    numero: string;
-    lieu: string;
-    email: string;
+    nom_pharmacie?: string;
+    chef_pharmacie?: string;
+    commune?: string;
+    details?: string;
+    numero?: string;
+    lieu?: string;
+    email?: string;
     userType?: string;
-    password: string;
+    password?: string;
 }
 export interface Garde {
   reference: string;
