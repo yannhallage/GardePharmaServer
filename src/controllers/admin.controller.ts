@@ -56,7 +56,16 @@ export const getAllPharmacy = async (req: Request, res: Response) => {
         return res.status(200).json({
             success: true,
             message: 'toutes les pharmacies récupéré avec succès',
-            data: Allpharmacy,
+            data: Allpharmacy.map((item) => ({
+                identification: item.identification,
+                nom_pharmacie: item.nom_pharmacie,
+                chef_pharmacie: item.chef_pharmacie,
+                details: item.details,
+                commune: item.commune,
+                lieu: item.lieu,
+                email: item.email,
+                numero: item.numero,
+            }))
         });
     } catch (error) {
         console.error('[Erreur Historique Gardes]', error);

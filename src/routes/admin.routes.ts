@@ -9,13 +9,16 @@ import {
     getAllPharmacy
 
 } from '../controllers/admin.controller';
+
 import { verifyToken } from '../middlewares/verifyToken';
 import {
     gardeIdSchema,
+    gardeCreerSchema,
     pharmacyRegisterSchemaByAdmin,
     profilUpdateSchemaAdmin
 } from '../validations/validation';
 import { validateParams, validateRequest } from '../middlewares/validateRequest';
+import { creerGarde } from '../controllers/pharmacy.controller';
 
 const router = express.Router();
 
@@ -31,12 +34,23 @@ router.get('/gererGardes/:id',
     validateParams(gardeIdSchema),
     getAllGardes
 );
+router.post('/creergardes/:id',
+    // verifyToken,
+    validateParams(gardeIdSchema),
+    validateRequest(gardeCreerSchema),
+    creerGarde
+);
+router.get('/listehistorique/:id',
+    // verifyToken,
+    getAllGardes
+);
+
 router.get('/obtenirListePharmacy/:id',
     // verifyToken,
     validateParams(gardeIdSchema),
     getAllPharmacy
 );
-    router.put('/mofifierProfil/:id',
+router.put('/mofifierProfil/:id',
     // verifyToken,
     validateParams(gardeIdSchema),
     validateRequest(profilUpdateSchemaAdmin),
