@@ -24,40 +24,36 @@ const router = express.Router();
 
 
 
-router.get('/listehistorique/:id',
+router.get('/listehistorique/:id',//
     // verifyToken,
     validateParams(gardeIdSchema),
     getAllHistoriqueGardes
 );
-router.get('/gererGardes/:id',
+router.get('/gererGardes/:id', //
     // verifyToken,
     validateParams(gardeIdSchema),
     getAllGardes
 );
-router.post('/creergardes/:id',
+router.post('/creergardes/:id',//
     // verifyToken,
     validateParams(gardeIdSchema),
     validateRequest(gardeCreerSchema),
     creerGarde
 );
-router.get('/listehistorique/:id',
-    // verifyToken,
-    getAllGardes
-);
 
-router.get('/obtenirListePharmacy/:id',
+router.get('/obtenirListePharmacy/:id',//
     // verifyToken,
     validateParams(gardeIdSchema),
     getAllPharmacy
 );
-router.put('/mofifierProfil/:id',
+router.put('/mofifierProfil/:id',//
     // verifyToken,
     validateParams(gardeIdSchema),
     validateRequest(profilUpdateSchemaAdmin),
     ModifierProfil
 );
 
-router.post('/creerPharmacy/:id',
+router.post('/creerPharmacy/:id',//
     // verifyToken,
     validateParams(gardeIdSchema),
     validateRequest(pharmacyRegisterSchemaByAdmin),
