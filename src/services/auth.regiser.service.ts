@@ -34,19 +34,27 @@ const loginPharmacy = async (credentials: Partial<Pharmacy>): Promise<Pharmacy |
 }
 
 const registerPharmacy = async (data: Partial<Pharmacy>): Promise<Pharmacy> => {
-    const { password, ...rest } = data;
+    const { email, password, ...rest } = data;
 
-    const hashedPassword = await bcrypt.hash(password!, 10);
+    if (!email || !password) {
+        throw new Error('Email et mot de passe sont requis.');
+    }
 
+    const existingPharmacy = await DataPharmacy.findOne({ email });
+
+    if (!existingPharmacy) {
+        throw new Error("Aucune pharmacie trouvée avec cet email.");
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
     const identification = `PHARMA-${Date.now()}`;
 
-    const newPharmacy = new DataPharmacy({
-        ...rest,
-        password: hashedPassword,
-        identification,
-    });
+    existingPharmacy.password = hashedPassword;
+    existingPharmacy.identification = identification;
 
-    return await newPharmacy.save();
+    Object.assign(existingPharmacy, rest);
+
+    return await existingPharmacy.save();
 };
 
 export default {

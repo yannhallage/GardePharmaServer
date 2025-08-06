@@ -15,22 +15,22 @@ import { verifyToken } from '../middlewares/verifyToken';
 
 const router = Router();
 
-router.get('/gardes/histroriques/:id',
+router.get('/histroriquesGardes/:id',
     // verifyToken,
     validateParams(gardeIdSchema),
     getHistoriqueGardeById
 );
-router.get('/gardes/consulterGardes/:id',
+router.get('/consulterGardes/:id',
     // verifyToken,
     validateParams(gardeIdSchema),
     getConsulterGardeById
 );
-router.post('/gardes/creergardes',
+router.post('/creergardes',
     // verifyToken,
     validateRequest(gardeCreerSchema),
     creerGarde
 );
-router.put('/gardes/modifierProfil/:id',
+router.put('/modifierProfil/:id',
     // verifyToken,
     validateParams(gardeIdSchema),
     validateRequest(profilUpdateSchema),
