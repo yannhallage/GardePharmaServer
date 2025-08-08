@@ -30,6 +30,7 @@ export const authentification = async (req: Request, res: Response, next: NextFu
                 { expiresIn: '2h' }
             );
 
+            // console.log(admin.email)
             return res.status(200).json({
                 message: 'Connexion réussie',
                 token,
@@ -38,6 +39,7 @@ export const authentification = async (req: Request, res: Response, next: NextFu
                     nom: admin.nom,
                     prenom: admin.prenom,
                     email: admin.email,
+                    numero: admin.numero,
                     userType: 'admin',
                 },
             });
