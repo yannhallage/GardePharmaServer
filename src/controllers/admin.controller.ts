@@ -80,20 +80,25 @@ export const ModifierProfil = async (req: Request, res: Response) => {
     const { id } = req.params;
     const requetDonnee: AdminType = req.body;
 
-    try {
-        const updatedPharmacy = await AdminService.updateAdminById(id, requetDonnee);
+    if (id && requetDonnee) {
+        try {
+            console.log(id)
+            const updatedPharmacy = await AdminService.updateAdminById(id, requetDonnee);
 
-        if (!updatedPharmacy) {
-            return res.status(404).json({ error: 'Pharmacie introuvable' });
+            if (!updatedPharmacy) {
+                return res.status(404).json({ error: 'Pharmacie introuvable' });
+            }
+
+            return res.status(200).json({
+                message: 'Profil mis à jour avec succès',
+                data: updatedPharmacy,
+            });
+        } catch (error) {
+            console.error('[Update Pharmacy Error]', error);
+            return res.status(500).json({ error: 'Erreur serveur' });
         }
-
-        return res.status(200).json({
-            message: 'Profil mis à jour avec succès',
-            data: updatedPharmacy,
-        });
-    } catch (error) {
-        console.error('[Update Pharmacy Error]', error);
-        return res.status(500).json({ error: 'Erreur serveur' });
+    }else{
+        console.log('un problme')
     }
 };
 
@@ -105,8 +110,8 @@ export const ajouterPharmacyParAdmin = async (req: Request, res: Response) => {
 
         res.status(201).json({
             message: 'Pharmacie ajoutée avec succès',
-            pharmacy,
-            mot_de_passe_temporaire: tempPassword,
+            // pharmacy,
+            // mot_de_passe_temporaire: tempPassword,
         });
     } catch (error) {
         res.status(400).json({ error: (error as Error).message });

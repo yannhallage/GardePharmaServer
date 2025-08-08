@@ -67,9 +67,9 @@ export const profilUpdateSchema = z.object({
 
 // update pour admin
 export const profilUpdateSchemaAdmin = z.object({
-  nom: z.string().min(2, 'Le nom admin est requis').optional(),
-  prenom: z.string().min(2, 'Le prenom admin est requis').optional(),
-  email: z.string().email('Email invalide').optional(),
-  numero: z.string().min(7, 'Le numéro est requis').max(20, 'Numéro trop long').optional(),
+  nom: z.string().min(2, 'Le nom admin est requis'),
+  prenom: z.string().min(2, 'Le prenom admin est requis'),
+  email: z.string().email('Email invalide'),
+  numero: z.string().min(7, 'Le numéro est requis').max(20, 'Numéro trop long'),
   password: z.string().min(6, 'Le mot de passe doit contenir au moins 6 caractères').optional(),
 });
