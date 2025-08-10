@@ -7,6 +7,7 @@ export const validateRequest = (schema: ZodObject<ZodRawShape>) => {
             req.body = schema.parse(req.body);
             next();
         } catch (error: any) {
+            console.error('Erreur validation corps:', error.errors);
             return res.status(400).json({
                 success: false,
                 message: 'Validation échouée (body)',
@@ -15,6 +16,7 @@ export const validateRequest = (schema: ZodObject<ZodRawShape>) => {
         }
     };
 };
+
 
 export const validateParams = (schema: ZodSchema<any>) => {
     return (req: Request, res: Response, next: NextFunction) => {

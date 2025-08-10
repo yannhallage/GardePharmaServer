@@ -57,6 +57,7 @@ export const getAllPharmacy = async (req: Request, res: Response) => {
             success: true,
             message: 'toutes les pharmacies récupéré avec succès',
             data: Allpharmacy.map((item) => ({
+                id: item._id,
                 identification: item.identification,
                 nom_pharmacie: item.nom_pharmacie,
                 chef_pharmacie: item.chef_pharmacie,
@@ -97,7 +98,7 @@ export const ModifierProfil = async (req: Request, res: Response) => {
             console.error('[Update Pharmacy Error]', error);
             return res.status(500).json({ error: 'Erreur serveur' });
         }
-    }else{
+    } else {
         console.log('un problme')
     }
 };

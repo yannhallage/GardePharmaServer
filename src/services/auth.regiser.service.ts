@@ -48,7 +48,7 @@ const registerPharmacy = async (data: Partial<Pharmacy>): Promise<Pharmacy> => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
     const identification = `PHARMA-${Date.now()}`;
-
+    
     existingPharmacy.password = hashedPassword;
     existingPharmacy.identification = identification;
 

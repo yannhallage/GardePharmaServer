@@ -25,7 +25,7 @@ router.get('/consulterGardes/:id',//
     validateParams(gardeIdSchema),
     getConsulterGardeById
 );
-router.post('/creergardes/:id',
+router.post('/creergardes/:id', 
     // verifyToken,
     validateParams(gardeIdSchema),
     validateRequest(gardeCreerSchema),

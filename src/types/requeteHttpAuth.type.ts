@@ -31,8 +31,9 @@ export interface Garde {
   type: string;
   nom_pharmacie: string;
   responsable: string;
-  lieu: string;
+  lieu?: string;
   userId: string;
+  identification_pharma: string;
   commune: string;
   statut: string;
   commentaire?: string;

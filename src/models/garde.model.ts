@@ -1,4 +1,4 @@
-import mongoose, { Schema, Document } from 'mongoose';
+import mongoose, { Schema, Document, StringExpressionOperatorReturningArray } from 'mongoose';
 
 export interface IGarde extends Document {
   reference: string;
@@ -6,8 +6,9 @@ export interface IGarde extends Document {
   type: string;
   nom_pharmacie: string;
   responsable: string;
+  userId: string,
   commune: string;
-  userId: string;
+  identification_pharma: string;
   statut: string;
   commentaire?: string;
   createdAt: Date;
@@ -21,8 +22,9 @@ const GardeSchema: Schema = new Schema<IGarde>(
     type: { type: String, required: true },
     nom_pharmacie: { type: String, required: true },
     responsable: { type: String, required: true },
-    commune: { type: String, required: true },
     userId: { type: String, required: true },
+    commune: { type: String, required: true },
+    identification_pharma: { type: String, required: true },
     statut: { type: String, required: true },
     commentaire: { type: String, required: false },
   },

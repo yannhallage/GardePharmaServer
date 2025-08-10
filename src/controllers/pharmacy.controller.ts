@@ -22,12 +22,15 @@ export const getConsulterGardeById = async (req: Request, res: Response) => {
     if (!garde) {
         return res.status(404).json({ message: 'Garde non trouvée' });
     }
+
+    console.log(garde)
     res.json(garde);
 };
 
 export const creerGarde = async (req: Request, res: Response) => {
     try {
         const requeteHttp: Garde = req.body;
+        console.log(requeteHttp)
         const gardeCreer = await gardeService.createGarde(requeteHttp);
         return res.status(201).json(
             {
