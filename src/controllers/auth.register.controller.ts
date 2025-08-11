@@ -68,13 +68,14 @@ export const authentification = async (req: Request, res: Response, next: NextFu
                 message: 'Connexion réussie',
                 token,
                 user: {
-                    identification: pharmacy.identification,
+                    identification: pharmacy._id,
                     nom_pharmacie: pharmacy.nom_pharmacie,
                     chef_pharmacie: pharmacy.chef_pharmacie,
                     email: pharmacy.email,
                     details: pharmacy.details,
                     commune: pharmacy.commune,
                     lieu: pharmacy.lieu,
+                    userType: requeteHttp.userType,
                     numero: pharmacy.numero,
                 },
             });
@@ -91,9 +92,19 @@ export const inscriptionPharmacy = async (req: Request, res: Response, next: Nex
 
         const pharmacieCree = await authRegisterService.registerPharmacy(requeteHttp);
 
+        const token = jwt.sign(
+            {
+                id: pharmacieCree._id,
+                email: pharmacieCree.email,
+                role: requeteHttp.userType,
+            },
+            SECRET,
+            { expiresIn: '2h' }
+        );
         res.status(201).json({
             message: 'Pharmacie enregistrée avec succès',
-            data: {
+            token,
+            user: {
                 id: pharmacieCree._id,
                 identification: pharmacieCree.identification,
                 nom_pharmacie: pharmacieCree.nom_pharmacie,
@@ -101,6 +112,8 @@ export const inscriptionPharmacy = async (req: Request, res: Response, next: Nex
                 details: pharmacieCree.details,
                 email: pharmacieCree.email,
                 commune: pharmacieCree.commune,
+                lieu: pharmacieCree.lieu,
+                userType: 'pharmacy',
                 numero: pharmacieCree.numero,
             },
         });

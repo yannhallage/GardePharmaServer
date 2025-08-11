@@ -31,8 +31,9 @@ export interface Garde {
   type: string;
   nom_pharmacie: string;
   responsable: string;
-  lieu: string;
+  lieu?: string;
   userId: string;
+  identification_pharma: string;
   commune: string;
   statut: string;
   commentaire?: string;
@@ -48,4 +49,11 @@ export interface CreatePharmacyInput {
   email: string;
 }
 
-export const tokenSecret: any = process.env.tokenSecret 
+export const tokenSecret: any = process.env.tokenSecret
+
+export interface UpdateGardes {
+  id_garde: string,
+  newDate: string,
+  statut: string,
+  comments: string
+}

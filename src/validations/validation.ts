@@ -50,9 +50,18 @@ export const gardeCreerSchema = z.object({
   responsable: z.string().min(1, 'Le responsable est requis'),
   commune: z.string().min(1, 'La commune est requise'),
   userId: z.string().min(1, 'utilisateur pharmacie est requise'),
+  identification_pharma: z.string().min(1, 'utilisateur pharmacie est requise'),
   statut: z.string().min(1, 'Le statut est requis'),
   commentaire: z.string().optional(),
 });
+
+export const updateGardesSchema = z.object({
+  id_garde: z.string().regex(/^[a-f\d]{24}$/i, 'Identifiant invalide'),
+  newDate: z.string().datetime({ message: 'La date doit être au format ISO' }),
+  statut: z.string().min(1, 'Le statut est requis'),
+  comments: z.string().min(1, 'Le commentaire est requis'),
+});
+
 
 export const profilUpdateSchema = z.object({
   nom_pharmacie: z.string().min(2, 'Le nom de la pharmacie est requis').optional(),
