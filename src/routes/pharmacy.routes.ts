@@ -2,6 +2,7 @@ import { Router } from 'express';
 import {
     getHistoriqueGardeById,
     creerGarde,
+    ModifierGardes,
     getConsulterGardeById,
     ModifierProfil
 } from '../controllers/pharmacy.controller';
@@ -9,7 +10,8 @@ import { validateParams, validateRequest } from '../middlewares/validateRequest'
 import {
     gardeIdSchema,
     gardeCreerSchema,
-    profilUpdateSchema
+    profilUpdateSchema,
+    updateGardesSchema
 } from '../validations/validation';
 import { verifyToken } from '../middlewares/verifyToken';
 
@@ -36,6 +38,12 @@ router.put('/modifierProfil/:id',//
     validateParams(gardeIdSchema),
     validateRequest(profilUpdateSchema),
     ModifierProfil
+);
+router.put('/modifierGardes/:id',//
+    // verifyToken,
+    validateParams(gardeIdSchema),
+    validateRequest(updateGardesSchema),
+    ModifierGardes
 );
 
 export default router;

@@ -49,4 +49,11 @@ export interface CreatePharmacyInput {
   email: string;
 }
 
-export const tokenSecret: any = process.env.tokenSecret 
+export const tokenSecret: any = process.env.tokenSecret
+
+export interface UpdateGardes {
+  id_garde: string,
+  newDate: string,
+  statut: string,
+  comments: string
+}

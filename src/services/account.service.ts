@@ -2,6 +2,7 @@ import DataPharmacy from '../models/pharmacy.model';
 import mongoose from 'mongoose';
 import { Pharmacy as IPharmacy } from '../models/pharmacy.model';
 
+
 const updatePharmacyById = async (
     _id: string,
     updates: Partial<IPharmacy>
@@ -14,6 +15,8 @@ const updatePharmacyById = async (
         runValidators: true,
     });
 };
+
+
 
 
 export default {

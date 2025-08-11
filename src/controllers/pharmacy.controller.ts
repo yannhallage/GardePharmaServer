@@ -1,10 +1,10 @@
 
-
-
 import { Request, Response } from 'express';
 import gardeService from '../services/garde.service';
 import { Garde, PharmacyRegister } from '../types/requeteHttpAuth.type';
 import modifierProfil from '../services/account.service'
+
+
 
 export const getHistoriqueGardeById = async (req: Request, res: Response) => {
     const { id } = req.params;
@@ -23,7 +23,7 @@ export const getConsulterGardeById = async (req: Request, res: Response) => {
         return res.status(404).json({ message: 'Garde non trouvée' });
     }
 
-    console.log(garde)
+    // console.log(garde)
     res.json(garde);
 };
 
@@ -63,6 +63,29 @@ export const ModifierProfil = async (req: Request, res: Response) => {
     } catch (error) {
         console.error('[Update Pharmacy Error]', error);
         return res.status(500).json({ error: 'Erreur serveur' });
+    }
+};
+
+export const ModifierGardes = async (req: Request, res: Response) => {
+    try {
+        // const id = req.params.id;
+        const { newDate, statut, comments, id_garde } = req.body;
+
+        const data = { id_garde, newDate, statut, comments };
+
+        const updatedGarde = await gardeService.updateGardeById(data);
+
+        if (!updatedGarde) {
+            return res.status(404).json({ error: 'Garde introuvable' });
+        }
+
+        res.status(200).json({
+            message: 'Garde mise à jour avec succès',
+            data: updatedGarde,
+        });
+    } catch (error) {
+        console.error('[Update Garde Error]', error);
+        res.status(500).json({ error: 'Erreur serveur' });
     }
 };
 
