@@ -1,8 +1,10 @@
 import bcrypt from 'bcrypt';
+import Garde, { IGarde } from '../models/garde.model';
 import mongoose from 'mongoose';
 // import bcrypt from 'bcrypt';
 import { v4 as uuidv4 } from 'uuid';
 import Admin, { IAdmin } from '../models/admin.model';
+import NotificationSchema, { INotification } from '../models/notificaiton.model';
 
 import DataPharmacy, { Pharmacy } from '../models/pharmacy.model'
 import { CreatePharmacyInput } from '../types/requeteHttpAuth.type';
@@ -61,13 +63,58 @@ const updateAdminById = async (
   });
 };
 
+const updateGardeByAdmin = async (_id: string) => {
+  if (!mongoose.Types.ObjectId.isValid(_id)) return null;
+
+  // console.log(_id)
+  const updates = {
+    statut: "en cours",
+  };
+
+  return await Garde.findByIdAndUpdate(_id, updates, {
+    new: true,
+    runValidators: true,
+  });
+};
+const deleteGardeByAdmin = async (_id: string) => {
+  if (!mongoose.Types.ObjectId.isValid(_id)) return null;
+
+  return await Garde.findByIdAndDelete(_id);
+};
+
+
+
 export const getAllPharmacyByAdmin = async (): Promise<Pharmacy[]> => {
   return await DataPharmacy.find({});
 };
 
+
+// sous requets
+export const getAllNotification = async (userId: string): Promise<INotification[]> => {
+  return await NotificationSchema.find({ userId }).sort({ date: -1 });
+};
+
+export const createNotification = async (
+  Id: string,
+  msm: string,
+): Promise<INotification> => {
+  const notification = new NotificationSchema({
+    userId: Id,
+    message: msm,
+    date: new Date(),
+  });
+  return await notification.save();
+};
+
+
+
 export default {
   create,
   ajouterPharmacyParAdmin,
+  updateGardeByAdmin,
   getAllPharmacyByAdmin,
+  createNotification,
+  deleteGardeByAdmin,
+  getAllNotification,
   updateAdminById,
 };

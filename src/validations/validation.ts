@@ -35,6 +35,11 @@ export const AuthSchema = z.object({
   email: z.string().email(),
   password: z.string().min(6)
 });
+export const sousrequete = z.object({
+  id_garde: z.string().min(1, "id_garde est requis"),
+  userId: z.string().min(1, "userId est requis"),
+  action: z.string().min(6, "L'action doit contenir au moins 6 caractères"),
+});
 
 // cas utilsant l'id pour obtenir des infos
 export const gardeIdSchema = z.object({
