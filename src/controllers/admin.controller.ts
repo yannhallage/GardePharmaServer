@@ -1,7 +1,9 @@
 import { Request, Response, NextFunction } from 'express';
 import AdminService from '../services/admin.service';
 import gardeService from '../services/garde.service'
+
 import { AdminType, PharmacyRegister, CreatePharmacyInput } from '../types/requeteHttpAuth.type';
+import { sendNotificationToUser } from '../sockets/notification.socket';
 
 export const createAdmin = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -159,6 +161,8 @@ export const SousRequetUpAndDel = async (req: Request, res: Response) => {
                     userId,
                     `Votre garde a été acceptée par l'admin`
                 );
+                const messageNotification = `Votre garde a été acceptée par l'admin`
+                sendNotificationToUser(userId, messageNotification)
             }
         } else if (action === 'delete') {
             await AdminService.deleteGardeByAdmin(id_garde);
@@ -168,6 +172,8 @@ export const SousRequetUpAndDel = async (req: Request, res: Response) => {
                     userId,
                     `Votre garde a été supprimée par l'admin`
                 );
+                const messageNotification = `Votre garde a été supprimée par l'admin`
+                sendNotificationToUser(userId, messageNotification)
             }
         }
 

@@ -35,4 +35,5 @@ export const sendNotificationToUser = (userId: string, message: string) => {
         return;
     }
     io.to(userId).emit('notification', { message });
+    console.log(`notification envoyée à l'utilisateur : ${userId}`)
 };
