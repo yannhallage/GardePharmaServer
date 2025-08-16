@@ -3,6 +3,7 @@ import { Request, Response } from 'express';
 import gardeService from '../services/garde.service';
 import { Garde, PharmacyRegister } from '../types/requeteHttpAuth.type';
 import modifierProfil from '../services/account.service'
+import PublicService from '../services/public.service';
 
 
 
@@ -32,6 +33,11 @@ export const creerGarde = async (req: Request, res: Response) => {
         const requeteHttp: Garde = req.body;
         console.log(requeteHttp)
         const gardeCreer = await gardeService.createGarde(requeteHttp);
+
+        let userID: string = requeteHttp.userId;
+        let messageNotification: string = `une garde vous a été attribuée !`
+        const notification = await PublicService.createNotification(userID, messageNotification);
+
         return res.status(201).json(
             {
                 message: 'Garde créée avec succès',

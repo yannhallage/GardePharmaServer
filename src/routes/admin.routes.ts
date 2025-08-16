@@ -7,8 +7,8 @@ import {
     ModifierProfil,
     ajouterPharmacyParAdmin,
     SousRequetUpAndDel,
-    postNotification,
-    getAllNotification,
+    // postNotification,
+    // getAllNotification,
     getAllPharmacy
 
 } from '../controllers/admin.controller';
@@ -71,18 +71,7 @@ router.post(`/sousrequete/:id`,//
     validateRequest(sousrequete),
     SousRequetUpAndDel
 );
-router.post('/notifications/:id',//
-    // verifyToken,
-    validateParams(gardeIdSchema),
-    validateRequest(pharmacyRegisterSchemaByAdmin),
-    postNotification
-);
 
-router.get('/notifications/:id',//
-    // verifyToken,
-    validateParams(gardeIdSchema),
-    getAllNotification
-);
 // 
 
 export default router;

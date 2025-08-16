@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import AdminService from '../services/admin.service';
+import PublicService from '../services/public.service';
 import gardeService from '../services/garde.service'
 
 import { AdminType, PharmacyRegister, CreatePharmacyInput } from '../types/requeteHttpAuth.type';
@@ -124,22 +125,22 @@ export const ajouterPharmacyParAdmin = async (req: Request, res: Response) => {
 };
 
 // pour les sous requets
-export const postNotification = async (req: Request, res: Response) => {
-    try {
-        const { userId, message } = req.body;
+// export const postNotification = async (req: Request, res: Response) => {
+//     try {
+//         const { userId, message } = req.body;
 
-        if (!userId || !message) {
-            return res.status(400).json({ error: 'userId et message requis' });
-        }
+//         if (!userId || !message) {
+//             return res.status(400).json({ error: 'userId et message requis' });
+//         }
 
-        const notification = await AdminService.createNotification(userId, message);
-        return res.status(201).json(notification);
+//         const notification = await AdminService.createNotification(userId, message);
+//         return res.status(201).json(notification);
 
-    } catch (error) {
-        console.error('[Erreur création notification]', error);
-        return res.status(500).json({ error: 'Erreur serveur' });
-    }
-};
+//     } catch (error) {
+//         console.error('[Erreur création notification]', error);
+//         return res.status(500).json({ error: 'Erreur serveur' });
+//     }
+// };
 
 export const SousRequetUpAndDel = async (req: Request, res: Response) => {
     try {
@@ -157,7 +158,7 @@ export const SousRequetUpAndDel = async (req: Request, res: Response) => {
             }
 
             if (userId) {
-                await AdminService.createNotification(
+                await PublicService.createNotification(
                     userId,
                     `Votre garde a été acceptée par l'admin`
                 );
@@ -168,7 +169,8 @@ export const SousRequetUpAndDel = async (req: Request, res: Response) => {
             await AdminService.deleteGardeByAdmin(id_garde);
 
             if (userId) {
-                await AdminService.createNotification(
+                // console.log(id_garde)
+                await PublicService.createNotification(
                     userId,
                     `Votre garde a été supprimée par l'admin`
                 );
@@ -188,25 +190,25 @@ export const SousRequetUpAndDel = async (req: Request, res: Response) => {
 
 
 
-export const getAllNotification = async (req: Request, res: Response) => {
-    try {
-        const { id } = req.params;
-        const notifications = await AdminService.getAllNotification(id);
+// export const getAllNotification = async (req: Request, res: Response) => {
+//     try {
+//         const { id } = req.params;
+//         const notifications = await AdminService.getAllNotification(id);
 
-        return res.status(200).json({
-            success: true,
-            message: 'Toutes les notifications récupérées avec succès',
-            data: notifications.map((n) => ({
-                message: n.message,
-                date: n.date
-            }))
-        });
-    } catch (error) {
-        console.error('[Erreur récupération notifications]', error);
-        return res.status(500).json({
-            success: false,
-            message: 'Erreur lors de la récupération des notifications',
-        });
-    }
-};
+//         return res.status(200).json({
+//             success: true,
+//             message: 'Toutes les notifications récupérées avec succès',
+//             data: notifications.map((n) => ({
+//                 message: n.message,
+//                 date: n.date
+//             }))
+//         });
+//     } catch (error) {
+//         console.error('[Erreur récupération notifications]', error);
+//         return res.status(500).json({
+//             success: false,
+//             message: 'Erreur lors de la récupération des notifications',
+//         });
+//     }
+// };
 

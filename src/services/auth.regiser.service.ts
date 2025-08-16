@@ -30,6 +30,7 @@ const loginPharmacy = async (credentials: Partial<Pharmacy>): Promise<Pharmacy |
 
     const isMatch = await bcrypt.compare(password!, pharma.password);
     if (!isMatch) return null;
+    console.log(pharma)
     return pharma;
 }
 

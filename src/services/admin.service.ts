@@ -90,21 +90,21 @@ export const getAllPharmacyByAdmin = async (): Promise<Pharmacy[]> => {
 
 
 // sous requets
-export const getAllNotification = async (userId: string): Promise<INotification[]> => {
-  return await NotificationSchema.find({ userId }).sort({ date: -1 });
-};
+// export const getAllNotification = async (userId: string): Promise<INotification[]> => {
+//   return await NotificationSchema.find({ userId }).sort({ date: -1 });
+// };
 
-export const createNotification = async (
-  Id: string,
-  msm: string,
-): Promise<INotification> => {
-  const notification = new NotificationSchema({
-    userId: Id,
-    message: msm,
-    date: new Date(),
-  });
-  return await notification.save();
-};
+// export const createNotification = async (
+//   Id: string,
+//   msm: string,
+// ): Promise<INotification> => {
+//   const notification = new NotificationSchema({
+//     userId: Id,
+//     message: msm,
+//     date: new Date(),
+//   });
+//   return await notification.save();
+// };
 
 
 
@@ -113,8 +113,8 @@ export default {
   ajouterPharmacyParAdmin,
   updateGardeByAdmin,
   getAllPharmacyByAdmin,
-  createNotification,
+  // createNotification,
   deleteGardeByAdmin,
-  getAllNotification,
+  // getAllNotification,
   updateAdminById,
 };

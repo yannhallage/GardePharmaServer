@@ -7,6 +7,7 @@ import dotenv from 'dotenv';
 import AuthAndRegisterUsers from './routes/auth.register.routes'
 import AccesPharmacy from './routes/pharmacy.routes'
 import AccesAdmin from './routes/admin.routes'
+import AccesPublic from './routes/public.routes'
 
 dotenv.config();
 
@@ -60,6 +61,7 @@ class App {
     this.app.use('/api/access/management', AuthAndRegisterUsers)
     this.app.use('/api/access/pharma', AccesPharmacy)
     this.app.use('/api/access/admin', AccesAdmin)
+    this.app.use('/api/access/public', AccesPublic)
 
 
     this.app.use(/.*/, (req: Request, res: Response) => {
