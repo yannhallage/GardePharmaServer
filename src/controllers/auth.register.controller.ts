@@ -68,7 +68,8 @@ export const authentification = async (req: Request, res: Response, next: NextFu
                 message: 'Connexion réussie',
                 token,
                 user: {
-                    identification: pharmacy._id,
+                    _id: pharmacy._id,
+                    identification: pharmacy.identification,
                     nom_pharmacie: pharmacy.nom_pharmacie,
                     chef_pharmacie: pharmacy.chef_pharmacie,
                     email: pharmacy.email,
