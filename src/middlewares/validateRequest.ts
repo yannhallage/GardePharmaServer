@@ -4,6 +4,7 @@ import { ZodObject, ZodRawShape, ZodSchema } from 'zod';
 export const validateRequest = (schema: ZodObject<ZodRawShape>) => {
     return (req: Request, res: Response, next: NextFunction) => {
         try {
+            console.log(req.body)
             req.body = schema.parse(req.body);
             next();
         } catch (error: any) {

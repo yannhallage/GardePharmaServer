@@ -1,4 +1,6 @@
-  import express, { Application, Request, Response, NextFunction } from 'express';
+import express, { Application, Request, Response, NextFunction } from 'express';
+// import path from "path";
+
 import cors from 'cors';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
@@ -34,6 +36,8 @@ class App {
     this.app.use(express.json({ limit: '10mb' }));
     this.app.use(express.urlencoded({ extended: true, limit: '10mb' }));
     this.app.use(morgan('dev'));
+
+    // this.app.use("/images", express.static(path.join(__dirname, "../images")));
 
     const limiter = rateLimit({
       windowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS || '900000'),
