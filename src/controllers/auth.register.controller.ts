@@ -91,6 +91,12 @@ export const inscriptionPharmacy = async (req: Request, res: Response, next: Nex
     try {
         const requeteHttp: PharmacyRegister = req.body;
 
+        if (req.file) {
+            requeteHttp.image = req.file.buffer; 
+            requeteHttp.imageType = req.file.mimetype;
+        }
+
+        console.log(requeteHttp.image)
         const pharmacieCree = await authRegisterService.registerPharmacy(requeteHttp);
 
         const token = jwt.sign(

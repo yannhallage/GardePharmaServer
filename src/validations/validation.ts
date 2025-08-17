@@ -17,10 +17,15 @@ export const pharmacyRegisterSchema = z.object({
   details: z.string().optional(),
   numero: z.string().min(7, 'Le numéro est requis').max(20, 'Numéro trop long'),
   lieu: z.string().min(2, 'Le lieu est requis'),
+  itineraire: z.string().min(2, 'itineraire est requis'),
+  description: z.string().min(2, 'La description est requise'),
+  image: z.instanceof(Buffer).optional(),
+  imageType: z.string().optional(),     
   email: z.string().email('Email invalide'),
   password: z.string().min(6, 'Le mot de passe doit contenir au moins 6 caractères'),
   userType: z.literal('pharmacy').optional()
 });
+
 
 export const pharmacyRegisterSchemaByAdmin = z.object({
   nom_pharmacie: z.string().min(2, 'Le nom de la pharmacie est requis'),

@@ -11,9 +11,14 @@ export interface PharmacyRegister {
   chef_pharmacie?: string;
   commune?: string;
   details?: string;
+  description: string;
+  upload_picture: string;
+  itineraire: string;
   numero?: string;
   lieu?: string;
   email?: string;
+  image?: Buffer; // <-- image stockée en binaire
+  imageType?: string; 
   userType?: string;
   password?: string;
 }

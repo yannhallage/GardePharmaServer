@@ -10,6 +10,7 @@ import { validateRequest } from '../middlewares/validateRequest';
 import { adminSchema } from '../validations/validation';
 import { AuthSchema, pharmacyRegisterSchema } from '../validations/validation';
 import { createAdmin } from '../controllers/admin.controller';
+import { upload } from "../middlewares/upload";
 import { authentification, inscriptionPharmacy } from '../controllers/auth.register.controller';
 
 const router = express.Router();
@@ -22,8 +23,11 @@ router.post('/creerAdmin',
     validateRequest(adminSchema),
     createAdmin
 );
-router.post('/inscription',
+router.post(
+    "/inscription",
+    upload.single("images"),
     validateRequest(pharmacyRegisterSchema),
-    inscriptionPharmacy);
+    inscriptionPharmacy
+);
 
 export default router;
