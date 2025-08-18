@@ -12,7 +12,7 @@ const SECRET = process.env.JWT_SECRET || tokenSecret;
 export const authentification = async (req: Request, res: Response, next: NextFunction) => {
 
     const requeteHttp: DonneesReçue = req.body
-    console.log(requeteHttp)
+    // console.log(requeteHttp)
     if (requeteHttp.userType == 'admin') {
         try {
 
@@ -96,7 +96,7 @@ export const inscriptionPharmacy = async (req: Request, res: Response, next: Nex
             requeteHttp.imageType = req.file.mimetype;
         }
 
-        console.log(requeteHttp.image)
+        // console.log(requeteHttp.image)
         const pharmacieCree = await authRegisterService.registerPharmacy(requeteHttp);
 
         const token = jwt.sign(
