@@ -51,7 +51,7 @@ export const authentification = async (req: Request, res: Response, next: NextFu
         try {
 
             const pharmacy = await authRegisterService.loginPharmacy(requeteHttp);
-            console.log(pharmacy)
+            // console.log(pharmacy)
             if (!pharmacy) {
                 return res.status(401).json({ error: 'Email ou mot de passe invalide' });
             }
