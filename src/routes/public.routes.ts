@@ -5,7 +5,8 @@ import {
 } from '../validations/validation';
 import {
     getAllNotification,
-    postNotification
+    postNotification,
+    getGardes
 } from '../controllers/public.controller';
 import { validateParams, validateRequest } from '../middlewares/validateRequest';
 
@@ -26,6 +27,14 @@ router.post('/notifications/:id',//
     validateRequest(pharmacyRegisterSchemaByAdmin),
     postNotification
 );
+
+router.get('/touteslespharmaciesdegarde',//
+    // verifyToken,
+    // validateParams(gardeIdSchema),
+    // validateRequest(pharmacyRegisterSchemaByAdmin),
+    getGardes
+);
+
 
 
 export default router;
